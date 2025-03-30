@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            font-size: 32px;
+            font-family: Tahoma;
+        }
+     </style>
+
+    <script>
+        function fetchUserData(userId) {
+            fetch(`/get_user_data/?user_id=${userId}`)
+                .then(response => response.json())
+                .then(data => alert(`Username:${data.username}\nRole: ${data.role}\nUser ID: ${data.user_id}`))
+                .catch(error => console.error('Error', error));
+        }
+    </script>
+
+
+</head>
+<body>
+   {% for user in data %}
+   <h2>Пользователь: {{forloop.counter}}</h2>
+    Роль: {{user.role.name}}
+
+    <button onclick="fetchUserData('{{user.user_id}}')">Получить данные</button>
+    {% endfor %}
+
+</body>
+</html>
